@@ -33,6 +33,9 @@ Guest fills in the form  →  website sends JSON to your Apps Script URL  →  s
 1. Go to https://sheets.new and name it, for example **Baby Shower RSVPs**.
 2. Leave it empty. The script creates an **RSVPs** tab with the header row on its own.
 
+   > The file name (the title at the top of the page) can be anything. The script only cares about the
+   > **tab** name, set by `SHEET_NAME` in Part 2.
+
 ## Part 2: Add the script
 
 1. In the sheet, open **Extensions → Apps Script**.
@@ -42,7 +45,7 @@ Guest fills in the form  →  website sends JSON to your Apps Script URL  →  s
 
    | Setting | Meaning |
    |---|---|
-   | `SHEET_NAME` | Name of the tab that holds the RSVPs (default `RSVPs`) |
+   | `SHEET_NAME` | Name of the **tab** (at the bottom of the sheet) that holds the RSVPs, not the file name (default `RSVPs`) |
    | `MAX_GUESTS` | Must match `maxGuests` in `src/config/event.ts` (default `6`) |
    | `NOTIFY_EMAIL` | Optional. An address to email on every RSVP. Leave `''` for no emails. |
 
@@ -151,6 +154,8 @@ see the row update. Delete test rows from the sheet afterwards.
 
 | Problem | Fix |
 |---|---|
+| **No `RSVPs` tab after running `setup`** | Open the **Execution log** at the bottom of the editor. "No spreadsheet found" (or `Cannot read properties of null`) means the script isn't attached to the sheet: create it from the sheet via **Extensions → Apps Script**, or paste the sheet's ID into `SPREADSHEET_ID` at the top of the script. Also check that you ran **setup** (not another function), that you're looking at the right sheet, and that the new tab isn't hidden off-screen (click the **≡** icon at the bottom left to list all tabs). |
+| **`setup` finished but there's no `RSVPs` tab** | Open the **Execution log** and read the line `RSVPs tab is ready in "<name>": <link>`. Open that link: the script is attached to a different spreadsheet than the one you were looking at. Also confirm in **Executions** that the function that ran was `setup` (not `doGet` or another one). |
 | **No rows appear** | Open the web app URL in a browser. If you don't see `"ok":true`, the deployment's access isn't **Anyone**. Otherwise check **Executions** in the Apps Script sidebar for errors. |
 | **Browser shows a Google sign-in page** | **Who has access** isn't set to **Anyone**. Edit the deployment and redeploy. |
 | **Works locally but not on the live site** | The `VITE_RSVP_ENDPOINT` repo variable is missing or was added after the last deploy. Add it, then re-run the deploy workflow. |

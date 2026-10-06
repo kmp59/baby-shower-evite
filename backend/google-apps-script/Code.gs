@@ -11,6 +11,9 @@
 
 // ---------- Settings you may want to change ----------
 const SHEET_NAME = 'RSVPs';
+// Only needed if the script was NOT opened from the sheet via Extensions → Apps Script.
+// Paste the sheet's ID here (the long part of its URL between /d/ and /edit).
+const SPREADSHEET_ID = '';
 const MAX_GUESTS = 6;       // keep in sync with maxGuests in src/config/event.ts
 const NOTIFY_EMAIL = '';    // optional: an address to email on every RSVP (leave '' for none)
 
@@ -50,7 +53,9 @@ function doPost(e) {
 
 /** Optional: run once from the editor to create the header row before the first RSVP arrives. */
 function setup() {
-  getSheet();
+  const spreadsheet = getSheet().getParent();
+  // Open the Execution log to see which spreadsheet the RSVPs tab was created in.
+  console.log('RSVPs tab is ready in "' + spreadsheet.getName() + '": ' + spreadsheet.getUrl());
 }
 
 // ---------- Validation ----------
@@ -105,9 +110,21 @@ function findRowByEmail(sheet, email) {
   return null;
 }
 
+/** The spreadsheet the script is attached to, or the one named by SPREADSHEET_ID. */
+function getSpreadsheet() {
+  const spreadsheet = SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  if (!spreadsheet) {
+    throw new Error(
+      'No spreadsheet found. Open your Google Sheet and use Extensions → Apps Script to create the script, ' +
+        'or paste the sheet ID into SPREADSHEET_ID at the top of this file.'
+    );
+  }
+  return spreadsheet;
+}
+
 /** Gets (or creates) the RSVPs tab with a bold, frozen header row. */
 function getSheet() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = getSpreadsheet();
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = spreadsheet.insertSheet(SHEET_NAME);
