@@ -100,7 +100,7 @@ git push -u origin main
 ```
 
 > The repo name becomes part of your site address: `https://<your-username>.github.io/<repo-name>/`.
-> Pick a name you're happy to share, such as `pinali-baby-shower`.
+> Pick a name you're happy to share, such as `baby-shower-evite`.
 
 ## 5. Turn on GitHub Pages
 
