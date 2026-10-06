@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#F5E8D4"/>
+  <!-- ears -->
+  <ellipse cx="23" cy="17" rx="6.5" ry="15" fill="#D8BFA6" transform="rotate(-8 23 17)"/>
+  <ellipse cx="23" cy="18" rx="3" ry="11" fill="#E3B98F" transform="rotate(-8 23 18)"/>
+  <ellipse cx="41" cy="17" rx="6.5" ry="15" fill="#D8BFA6" transform="rotate(8 41 17)"/>
+  <ellipse cx="41" cy="18" rx="3" ry="11" fill="#E3B98F" transform="rotate(8 41 18)"/>
+  <!-- head -->
+  <circle cx="32" cy="40" r="19" fill="#D8BFA6"/>
+  <ellipse cx="32" cy="47" rx="10" ry="7.5" fill="#F5E8D4"/>
+  <!-- face -->
+  <circle cx="25.5" cy="38" r="2.6" fill="#3E2010"/>
+  <circle cx="38.5" cy="38" r="2.6" fill="#3E2010"/>
+  <circle cx="26.3" cy="37.1" r="0.9" fill="#fff"/>
+  <circle cx="39.3" cy="37.1" r="0.9" fill="#fff"/>
+  <ellipse cx="32" cy="43.5" rx="2.4" ry="1.8" fill="#E3B98F"/>
+  <path d="M32 45.5v2.5M32 48q-3 3-6 .8M32 48q3 3 6 .8" stroke="#B99A7E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+</svg>
