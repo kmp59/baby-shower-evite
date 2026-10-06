@@ -6,6 +6,7 @@ export interface RsvpFormValues {
   email: string;
   attending: Attending | '';
   guests: string;
+  children: string;
   message: string;
   /** Honeypot: hidden from people, so only bots fill it in. */
   website: string;
@@ -18,6 +19,8 @@ export interface RsvpSubmission {
   attending: Attending;
   /** 0 when not attending. */
   guests: number;
+  /** Children attending in addition to `guests`; 0 when not attending. */
+  children: number;
   message: string;
   /** Honeypot value (empty for real people); the backend discards RSVPs where it's filled. */
   website: string;

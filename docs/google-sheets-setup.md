@@ -24,9 +24,12 @@ Guest fills in the form  →  website sends JSON to your Apps Script URL  →  s
   re-validates the data and saves it.
 - The **Sheet** is your database. Each guest becomes one row:
 
-| Received At | Name | Email | Attending | Guests | Message |
-|---|---|---|---|---|---|
-| 2026-11-02 14:31 | Ann Lee | ann@example.com | Yes | 2 | Can't wait! |
+| Received At | Name | Email | Attending | Guests | Message | Children |
+|---|---|---|---|---|---|---|
+| 2026-11-02 14:31 | Ann Lee | ann@example.com | Yes | 2 | Can't wait! | 1 |
+
+"Guests" is the number of adults; "Children" is counted separately. If your sheet already has an RSVPs
+tab from before this column existed, type `Children` into cell G1.
 
 ## Part 1: Create the spreadsheet
 
@@ -46,6 +49,7 @@ Guest fills in the form  →  website sends JSON to your Apps Script URL  →  s
    | Setting | Meaning |
    |---|---|
    | `SHEET_NAME` | Name of the **tab** (at the bottom of the sheet) that holds the RSVPs, not the file name (default `RSVPs`) |
+   | `MAX_CHILDREN` | Must match `maxChildren` in `src/config/event.ts` (default `6`) |
    | `MAX_GUESTS` | Must match `maxGuests` in `src/config/event.ts` (default `6`) |
    | `NOTIFY_EMAIL` | Optional. An address to email on every RSVP. Leave `''` for no emails. |
 
@@ -112,7 +116,7 @@ The live site is built by GitHub, which has no access to your `.env.local` file,
 - **One row per email.** A repeat RSVP from the same email (case-insensitive) updates that guest's row
   instead of adding a duplicate, which is handy when someone changes their mind.
 - **Re-checks everything.** Name and email must be valid, "Attending" must be Yes or No, and the guest
-  count must be 1 to `MAX_GUESTS`. A "No" always saves 0 guests.
+  count must be 1 to `MAX_GUESTS` and children 0 to `MAX_CHILDREN`. A "No" always saves 0 for both.
 - **Neutralizes spreadsheet formulas.** Text starting with `=`, `+`, `-` or `@` is stored as plain text.
 - **Blocks simple bots.** The form has a hidden "website" field that people never see. If it's filled,
   the RSVP is silently discarded.
@@ -131,7 +135,7 @@ The URL stays the same. (Choosing "New deployment" instead creates a different U
 
 ```bash
 curl -L -H "Content-Type: text/plain" \
-  -d '{"name":"Test Guest","email":"test@example.com","attending":"Yes","guests":2,"message":"Hello","website":""}' \
+  -d '{"name":"Test Guest","email":"test@example.com","attending":"Yes","guests":2,"children":1,"message":"Hello","website":""}' \
   "https://script.google.com/macros/s/XXXXXXXX/exec"
 ```
 

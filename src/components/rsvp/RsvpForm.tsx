@@ -56,7 +56,7 @@ export function RsvpForm({ form }: { form: ReturnType<typeof useRsvpForm> }) {
 
       {/* Collapses when not attending; `inert` keeps hidden inputs out of tab order. */}
       <div className={`rsvp-collapsible ${isAttending ? '' : 'rsvp-collapsible--closed'}`} inert={!isAttending}>
-        <FormField label="Number of Guests" htmlFor="rsvp-guests" required>
+        <FormField label="Number of Adults (including you)" htmlFor="rsvp-guests" required>
           <input
             id="rsvp-guests"
             type="number"
@@ -64,6 +64,17 @@ export function RsvpForm({ form }: { form: ReturnType<typeof useRsvpForm> }) {
             max={EVENT.maxGuests}
             value={values.guests}
             onChange={(e) => setField('guests', e.target.value)}
+          />
+        </FormField>
+
+        <FormField label="Number of Children" htmlFor="rsvp-children">
+          <input
+            id="rsvp-children"
+            type="number"
+            min={0}
+            max={EVENT.maxChildren}
+            value={values.children}
+            onChange={(e) => setField('children', e.target.value)}
           />
         </FormField>
       </div>

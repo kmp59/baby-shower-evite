@@ -4,6 +4,7 @@ import { Bunny } from '../art/Bunny';
 import { CalendarIcon, ClockIcon, MapPinIcon } from '../art/icons';
 import { ScrollNudge } from '../layout/ScrollNudge';
 import { FadeIn } from '../ui/FadeIn';
+import { downloadEventIcs } from '../../utils/calendar';
 import { Button } from '../ui/Button';
 import { DetailTile } from './DetailTile';
 import { MapEmbed } from './MapEmbed';
@@ -35,28 +36,36 @@ export function InvitationSection() {
 
             <div className="details-grid">
               <DetailTile icon={<CalendarIcon />} label="Date" lines={[EVENT.date]} delay={1} />
-              <DetailTile icon={<ClockIcon />} label="Time" lines={[EVENT.time]} delay={2} />
+              <DetailTile
+                icon={<ClockIcon />}
+                label="Time"
+                lines={[EVENT.time]}
+                delay={2}
+                action={
+                  <Button variant="secondary" className="btn--small" type="button" onClick={downloadEventIcs}>
+                    Add to Calendar
+                  </Button>
+                }
+              />
               <DetailTile
                 icon={<MapPinIcon />}
                 label="Venue"
                 lines={[venue.name, venue.street, venue.cityStateZip]}
                 delay={3}
+                action={
+                  EVENT.mapUrl ? (
+                    <Button variant="secondary" className="btn--small" href={EVENT.mapUrl}>
+                      Get Directions
+                    </Button>
+                  ) : undefined
+                }
               />
             </div>
 
             <MapEmbed />
 
             <div className="invite-card__actions">
-              {EVENT.mapUrl && (
-                <Button href={EVENT.mapUrl}>
-                  Get Directions
-                </Button>
-              )}
-              {EVENT.calendarUrl && (
-                <Button href={EVENT.calendarUrl}>
-                  Add to Calendar
-                </Button>
-              )}
+              <Button href="#rsvp">RSVP</Button>
             </div>
           </FadeIn>
         </div>

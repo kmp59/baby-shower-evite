@@ -59,7 +59,7 @@ The UI only calls `rsvpService.submit(rsvp)`. Two options:
 1. **Google Sheets (set up):** the script is in `backend/google-apps-script/`. Follow
    `docs/google-sheets-setup.md`, then put the deployed URL in `.env.local` as `VITE_RSVP_ENDPOINT`.
    Any other HTTP endpoint that accepts the same JSON also works:
-   `name, email, attending, guests, message, website` (`website` is a spam trap and is always empty for real guests).
+   `name, email, attending, guests, children, message, website` (`website` is a spam trap and is always empty for real guests).
 2. **A different data store** (Firebase, Supabase, your own API): add a new implementation of
    `RsvpService` in `src/services/rsvpService.ts` and select it in `src/services/index.ts`.
    No component changes needed.

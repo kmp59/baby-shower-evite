@@ -9,6 +9,7 @@ const INITIAL_VALUES: RsvpFormValues = {
   email: '',
   attending: '',
   guests: '1',
+  children: '0',
   message: '',
   website: '',
 };
@@ -28,7 +29,7 @@ export function useRsvpForm() {
     event.preventDefault();
     setError('');
 
-    const result = validateRsvp(values, EVENT.maxGuests);
+    const result = validateRsvp(values, EVENT.maxGuests, EVENT.maxChildren);
     if (!result.ok) {
       setError(result.error);
       return;

@@ -33,8 +33,8 @@ export interface EventConfig {
   mapUrl: string;
   /** Free Google Maps embed (no API key) that shows a pin at the venue. */
   mapEmbedUrl: string;
-  /** "Add to Calendar" link. Leave empty to hide the button. */
-  calendarUrl: string;
+  /** Used by the "Add to Calendar" button. `start` is local time at the venue (YYYY-MM-DDTHH:mm). */
+  calendar: { start: string; durationMinutes: number };
   /** Intro line on the invitation card. */
   inviteIntro: string;
   /** Paragraph on the invitation card. */
@@ -43,6 +43,8 @@ export interface EventConfig {
   stampText: string;
   /** Maximum guests one RSVP can claim. Keep equal to MAX_GUESTS in the Google Apps Script. */
   maxGuests: number;
+  /** Maximum children one RSVP can claim. Keep equal to MAX_CHILDREN in the Google Apps Script. */
+  maxChildren: number;
   rsvp: RsvpCopy;
 }
 
@@ -65,12 +67,13 @@ export const EVENT: EventConfig = {
   footerLine: "Hop on over. We can't wait to see you!",
   mapUrl: `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`,
   mapEmbedUrl: `https://www.google.com/maps?q=${MAP_QUERY}&output=embed`,
-  calendarUrl: '',
+  calendar: { start: '2027-01-03T10:00', durationMinutes: 240 },
   inviteIntro: 'Together with their families',
   inviteBody:
     'invite you to a shower of love as we welcome our little bunny. Come hop in and celebrate with all the love they deserve before the big day.',
   stampText: 'BABY SHOWER · JANUARY 2027 · CLEARWATER FL · ',
   maxGuests: 6,
+  maxChildren: 6,
   rsvp: {
     title: 'Save Your Spot, Bunny Friend 🐰',
     headerTitle: 'RSVP · HOP ON IN',

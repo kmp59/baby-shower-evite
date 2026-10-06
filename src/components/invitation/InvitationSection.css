@@ -46,6 +46,8 @@
 .detail-tile__label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-sec); }
 .detail-tile__value { font-weight: 600; font-size: 0.95rem; line-height: 1.4; overflow-wrap: anywhere; }
 .detail-tile__line { display: block; }
+.detail-tile__action { margin-top: auto; padding-top: 0.5rem; }
+.btn--small { font-size: 0.85rem; padding: 0.5rem 1.1rem; min-height: 40px; }
 .detail-tile__value a { color: var(--accent); text-decoration: none; }
 
 @media (max-width: 600px) {

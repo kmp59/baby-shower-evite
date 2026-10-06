@@ -5,7 +5,7 @@ export type ValidationResult =
   | { ok: false; error: string };
 
 /** Validates raw form values and, on success, returns the clean payload to send. */
-export function validateRsvp(values: RsvpFormValues, maxGuests: number): ValidationResult {
+export function validateRsvp(values: RsvpFormValues, maxGuests: number, maxChildren: number): ValidationResult {
   const name = values.name.trim();
   const email = values.email.trim();
   const message = values.message.trim();
@@ -17,7 +17,11 @@ export function validateRsvp(values: RsvpFormValues, maxGuests: number): Validat
   const isAttending = values.attending === 'Yes';
   const guests = Number(values.guests);
   if (isAttending && !(Number.isInteger(guests) && guests >= 1 && guests <= maxGuests)) {
-    return fail(`Please enter the number of guests (1–${maxGuests}).`);
+    return fail(`Please enter the number of adults (1–${maxGuests}).`);
+  }
+  const children = Number(values.children);
+  if (isAttending && !(Number.isInteger(children) && children >= 0 && children <= maxChildren)) {
+    return fail(`Please enter the number of children (0–${maxChildren}).`);
   }
 
   return {
@@ -27,6 +31,7 @@ export function validateRsvp(values: RsvpFormValues, maxGuests: number): Validat
       email,
       attending: values.attending,
       guests: isAttending ? guests : 0,
+      children: isAttending ? children : 0,
       message,
       website: values.website,
     },

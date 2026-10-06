@@ -5,7 +5,7 @@
  * Setup steps are in docs/google-sheets-setup.md.
  *
  * Request body (JSON sent as text/plain):
- *   { name, email, attending: "Yes" | "No", guests: number, message, website }
+ *   { name, email, attending: "Yes" | "No", guests: number, children: number, message, website }
  * `website` is a hidden spam-trap field: real people leave it empty.
  */
 
@@ -15,10 +15,11 @@ const SHEET_NAME = 'RSVPs';
 // Paste the sheet's ID here (the long part of its URL between /d/ and /edit).
 const SPREADSHEET_ID = '';
 const MAX_GUESTS = 6;       // keep in sync with maxGuests in src/config/event.ts
+const MAX_CHILDREN = 6;     // keep in sync with maxChildren in src/config/event.ts
 const NOTIFY_EMAIL = '';    // optional: an address to email on every RSVP (leave '' for none)
 
-const HEADERS = ['Received At', 'Name', 'Email', 'Attending', 'Guests', 'Message'];
-const COL = { RECEIVED_AT: 1, NAME: 2, EMAIL: 3, ATTENDING: 4, GUESTS: 5, MESSAGE: 6 };
+const HEADERS = ['Received At', 'Name', 'Email', 'Attending', 'Guests', 'Message', 'Children'];
+const COL = { RECEIVED_AT: 1, NAME: 2, EMAIL: 3, ATTENDING: 4, GUESTS: 5, MESSAGE: 6, CHILDREN: 7 };
 
 // ---------- Web app entry points ----------
 
@@ -73,12 +74,15 @@ function validate(data) {
   if (message.length > 1000) return { error: 'Message too long.' };
 
   let guests = 0;
+  let children = 0;
   if (attending === 'Yes') {
     guests = Number(data.guests);
     if (!Number.isInteger(guests) || guests < 1 || guests > MAX_GUESTS) return { error: 'Invalid guest count.' };
+    children = Number(data.children || 0);
+    if (!Number.isInteger(children) || children < 0 || children > MAX_CHILDREN) return { error: 'Invalid children count.' };
   }
 
-  return { rsvp: { name: name, email: email, attending: attending, guests: guests, message: message } };
+  return { rsvp: { name: name, email: email, attending: attending, guests: guests, children: children, message: message } };
 }
 
 // ---------- Storage ----------
@@ -89,7 +93,7 @@ function validate(data) {
  */
 function saveRsvp(rsvp) {
   const sheet = getSheet();
-  const row = [new Date(), safeText(rsvp.name), rsvp.email, rsvp.attending, rsvp.guests, safeText(rsvp.message)];
+  const row = [new Date(), safeText(rsvp.name), rsvp.email, rsvp.attending, rsvp.guests, safeText(rsvp.message), rsvp.children];
   const existingRow = findRowByEmail(sheet, rsvp.email);
 
   if (existingRow) {
@@ -146,7 +150,7 @@ function notify(rsvp) {
   if (!NOTIFY_EMAIL) return;
   const subject = 'New RSVP: ' + rsvp.name + ' (' + rsvp.attending + ')';
   const body = 'Name: ' + rsvp.name + '\nEmail: ' + rsvp.email + '\nAttending: ' + rsvp.attending +
-    '\nGuests: ' + rsvp.guests + '\nMessage: ' + rsvp.message;
+    '\nGuests: ' + rsvp.guests + '\nChildren: ' + rsvp.children + '\nMessage: ' + rsvp.message;
   MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
 }
 

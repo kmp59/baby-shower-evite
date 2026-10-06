@@ -61,7 +61,7 @@ Almost everything you'll want to change is in one file: **`src/config/event.ts`*
 | `rsvpDeadline` | "Kindly respond by …" |
 | `inviteIntro`, `inviteBody`, `stampText` | Text on the invitation card and the round stamp |
 | `footerLine` | The closing line in the footer |
-| `calendarUrl` | Optional "Add to Calendar" link (the button is hidden when empty) |
+| `calendar` | Start time (`YYYY-MM-DDTHH:mm`, venue local time) and length in minutes for the "Add to Calendar" button |
 | `maxGuests` | Highest guest count one RSVP can claim (keep it equal to `MAX_GUESTS` in the Google script) |
 | `rsvp` | All RSVP wording: section heading, card header, Yes/No labels, message label, and both thank-you screens |
 
