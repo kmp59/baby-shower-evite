@@ -1,0 +1,19 @@
+.butterfly {
+  position: fixed;
+  top: 22%;
+  left: -70px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: butterfly-fly 4s ease-in-out forwards;
+}
+@keyframes butterfly-fly {
+  0%   { left: -70px; top: 22%; opacity: 1; transform: rotate(-6deg); }
+  35%  { top: 38%; }
+  65%  { top: 28%; }
+  90%  { left: calc(100vw + 80px); top: 25%; opacity: 1; transform: rotate(8deg); }
+  100% { left: calc(100vw + 80px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .butterfly { display: none; }
+}

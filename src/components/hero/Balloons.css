@@ -1,0 +1,19 @@
+.balloons { position: absolute; inset: 0; pointer-events: none; }
+.balloon {
+  position: absolute;
+  animation:
+    balloon-rise 2.4s ease-out var(--rise-delay, 0s) backwards,
+    balloon-bob var(--float-duration, 8s) ease-in-out calc(2.4s + var(--rise-delay, 0s)) infinite;
+}
+@keyframes balloon-rise {
+  from { transform: translateY(70vh); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes balloon-bob {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, -3deg)); }
+  50% { transform: translateY(-22px) rotate(var(--tilt-2, 3deg)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balloon { animation: none; }
+}

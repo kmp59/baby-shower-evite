@@ -1,0 +1,17 @@
+.btn {
+  display: inline-block;
+  font: 700 1rem var(--font-body);
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 48px; /* comfortable touch target */
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn--primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--btn-text); border: 0; box-shadow: 0 4px 14px var(--shadow); }
+.btn--secondary { background: transparent; color: var(--text-sec); border: 2px solid var(--border); }
+.btn--full { width: 100%; }

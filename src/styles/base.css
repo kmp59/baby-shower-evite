@@ -1,0 +1,28 @@
+/* Reset and page-wide defaults. Component-specific styles live next to each component. */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+section { position: relative; z-index: 1; }
+
+/* Faint carrot pattern behind the whole page */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg opacity='0.07' fill='%23D4A853'%3E%3Cpath d='M60 100 L50 62 Q60 54 70 62 Z'/%3E%3Cpath d='M60 58 Q50 40 56 34 Q60 44 60 58Z M60 58 Q70 40 64 34 Q60 44 60 58Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

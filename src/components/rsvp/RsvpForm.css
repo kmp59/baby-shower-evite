@@ -1,0 +1,29 @@
+/* Yes / No choices styled as pills; the native radio is hidden, the label shows the state. */
+.rsvp-radios { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.rsvp-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 44px;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.5rem 1.2rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.rsvp-radio input { position: absolute; opacity: 0; pointer-events: none; }
+.rsvp-radio:has(input:checked) { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
+.rsvp-radio:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rsvp-radio__dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; flex-shrink: 0; transition: background 0.2s; }
+.rsvp-radio:has(input:checked) .rsvp-radio__dot { background: var(--btn-text); }
+
+.rsvp-collapsible { overflow: hidden; max-height: 200px; transition: max-height 0.3s, opacity 0.3s; }
+.rsvp-collapsible--closed { max-height: 0; opacity: 0; }
+
+.rsvp-error { color: var(--error); font-size: 0.9rem; min-height: 1.3rem; margin-bottom: 0.8rem; }
+
+@media (max-width: 480px) { .rsvp-radios { flex-direction: column; } }
+
+.rsvp-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

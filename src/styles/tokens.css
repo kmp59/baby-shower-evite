@@ -1,0 +1,28 @@
+/* Design tokens — swap these to re-theme the whole site. */
+:root {
+  --bg: #fdf6ee;
+  --card-bg: #f5e8d4;
+  --input-bg: #f0e4cc;
+  --accent: #d4a853;
+  --accent-2: #e8c97a;
+  --text-main: #3e2010;
+  --text-sec: #8b6040;
+  --btn-text: #fdf6ee;
+  --border: #e0c090;
+  --footer-bg: #5c3d1e;
+  --error: #b3392f;
+  --shadow: rgba(0, 0, 0, 0.12);
+
+  --font-body: 'Lato', sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-script: 'Dancing Script', cursive;
+}
+
+/* Illustration colors (used by the SVG art via var(...)) */
+:root {
+  --fur: #d8bfa6;
+  --fur-dark: #b99a7e;
+  --soft: #e3b98f; /* warm apricot-sand: a gender-neutral accent */
+  --sage: #a9b59a;
+  --basket: #8b6040;
+}
