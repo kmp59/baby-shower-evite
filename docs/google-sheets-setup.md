@@ -24,12 +24,13 @@ Guest fills in the form  →  website sends JSON to your Apps Script URL  →  s
   re-validates the data and saves it.
 - The **Sheet** is your database. Each guest becomes one row:
 
-| Received At | Name | Email | Attending | Guests | Message | Children |
+| Received At | Name | Email | Attending | Guests | Children | Message |
 |---|---|---|---|---|---|---|
-| 2026-11-02 14:31 | Ann Lee | ann@example.com | Yes | 2 | Can't wait! | 1 |
+| 2026-11-02 14:31 | Ann Lee | ann@example.com | Yes | 2 | 1 | Can't wait! |
 
 "Guests" is the number of adults; "Children" is counted separately. If your sheet already has an RSVPs
-tab from before this column existed, type `Children` into cell G1.
+tab from before this column existed, right-click column F (Message), choose **Insert 1 column left**,
+and type `Children` into cell F1.
 
 ## Part 1: Create the spreadsheet
 

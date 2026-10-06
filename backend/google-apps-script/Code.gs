@@ -18,8 +18,8 @@ const MAX_GUESTS = 6;       // keep in sync with maxGuests in src/config/event.t
 const MAX_CHILDREN = 6;     // keep in sync with maxChildren in src/config/event.ts
 const NOTIFY_EMAIL = '';    // optional: an address to email on every RSVP (leave '' for none)
 
-const HEADERS = ['Received At', 'Name', 'Email', 'Attending', 'Guests', 'Message', 'Children'];
-const COL = { RECEIVED_AT: 1, NAME: 2, EMAIL: 3, ATTENDING: 4, GUESTS: 5, MESSAGE: 6, CHILDREN: 7 };
+const HEADERS = ['Received At', 'Name', 'Email', 'Attending', 'Guests', 'Children', 'Message'];
+const COL = { RECEIVED_AT: 1, NAME: 2, EMAIL: 3, ATTENDING: 4, GUESTS: 5, CHILDREN: 6, MESSAGE: 7 };
 
 // ---------- Web app entry points ----------
 
@@ -93,7 +93,7 @@ function validate(data) {
  */
 function saveRsvp(rsvp) {
   const sheet = getSheet();
-  const row = [new Date(), safeText(rsvp.name), rsvp.email, rsvp.attending, rsvp.guests, safeText(rsvp.message), rsvp.children];
+  const row = [new Date(), safeText(rsvp.name), rsvp.email, rsvp.attending, rsvp.guests, rsvp.children, safeText(rsvp.message)];
   const existingRow = findRowByEmail(sheet, rsvp.email);
 
   if (existingRow) {
